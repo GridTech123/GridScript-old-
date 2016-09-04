@@ -164,6 +164,12 @@ input not imported, use import input'''
                         if line_reading[4:7] == 'end':
                             if_true == False
                             line = line + 1
+                        if line_reading[4:12] == 'app.quit':
+                            if 'app' in modules:
+                                sys.exit()
+                            else:
+                                print '''ERROR!
+app not imported, use import app''' 
                         #print lines[line]
                         line_reading = lines[line]
                         if line_reading[4:9] == 'print':

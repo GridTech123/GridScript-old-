@@ -3,8 +3,10 @@ from tkFileDialog import*
 import os
 import pickle
 
-def test():
-    print "hi"
+def settings_open():
+    os.chdir('settings')
+    os.startfile('settings.exe')
+    os.chdir('..')
 
 def newFile():
     global filename
@@ -30,6 +32,7 @@ def saveAs():
         print('error')
 
 def openFile():
+
     try:
         f = askopenfile(mode = 'r')
         print f
@@ -52,19 +55,38 @@ def openFile():
         warn.mainloop()
 
 def run():
-    f = asksaveasfile(mode = 'w', defaultextension = '.gs')
-    t = text.get(0.0, END)
-    try:
-        f.write(t.rstrip())
-    except:
-        print('error')
-    abs_path = os.path.abspath(f.name)
-    os.chdir('Grid Script Compiler auto run')
-    pickle_out = open('file_path.gsrf', 'w')
-    pickle.dump(abs_path, pickle_out)
-    pickle_out.close()    
-    os.startfile('Grid_Script_Compiler.exe')
+    os.chdir('settings')
+    pickle_in = open('compiler_ver.gsrf', 'r')
+    compiler_ver = pickle.load(pickle_in)
     os.chdir('..')
+    if compiler_ver == 'normal':
+        f = asksaveasfile(mode = 'w', defaultextension = '.gs')
+        t = text.get(0.0, END)
+        try:
+            f.write(t.rstrip())
+        except:
+            print('error')
+        abs_path = os.path.abspath(f.name)
+        os.chdir('Grid Script Compiler auto run')
+        pickle_out = open('file_path.gsrf', 'w')
+        pickle.dump(abs_path, pickle_out)
+        pickle_out.close()    
+        os.startfile('Grid_Script_Compiler.exe')
+        os.chdir('..')
+    if compiler_ver == 'experamental':
+        f = asksaveasfile(mode = 'w', defaultextension = '.gs')
+        t = text.get(0.0, END)
+        try:
+            f.write(t.rstrip())
+        except:
+            print('error')
+        abs_path = os.path.abspath(f.name)
+        os.chdir('Grid Script Compiler auto run experimental')
+        pickle_out = open('file_path.gsrf', 'w')
+        pickle.dump(abs_path, pickle_out)
+        pickle_out.close()    
+        os.startfile('Grid_Script_Compiler.exe')
+        os.chdir('..')
     
 
 app = Tk()
@@ -84,7 +106,7 @@ filemenu.add_separator()
 filemenu.add_command(label = 'Quit', command = app.quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
 settings = Menu(menubar)
-settings.add_command(label = 'Settings', command = test)
+settings.add_command(label = 'Settings', command = settings_open)
 menubar.add_cascade(label = 'Settings', menu = settings)
 Run = Menu(menubar)
 Run.add_command(label = 'Run Program', command = run)

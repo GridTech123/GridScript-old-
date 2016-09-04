@@ -1,0 +1,17 @@
+import app
+app.variable.names
+app.variable.values
+var hi
+hello, how are you?
+app.variable.names
+app.variable.values
+var bye
+I have to go goodbye
+print printing var hi in 1 secound
+wait 1
+print var hi
+print printing var bye in 1 secound
+wait 1
+print var bye
+wait 10
+app.quit
