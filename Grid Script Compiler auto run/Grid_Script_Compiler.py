@@ -1,3 +1,4 @@
+#not experimental
 from tkFileDialog import*
 import sys
 import time
@@ -44,7 +45,8 @@ while True:
                 print '''ERROR!
 can not print input_answer, this is
 probably caused by not calling
-input.ask'''               
+input.ask'''  
+                time.sleep(100)             
         else:
             if line_reading[6:9] == 'var':
                 printlength = len(line_reading)
@@ -62,9 +64,11 @@ input.ask'''
                     except:
                         print '''ERROR!
     can not print variable'''
+                        time.sleep(100)
                 else:
                     print '''ERROR!
     not a variable'''
+                    time.sleep(100)
             else:
                 printlength = len(line_reading)
                 print line_reading[6:printlength]
@@ -75,6 +79,7 @@ input.ask'''
         else:
             print '''ERROR!
 app not imported, use import app'''  
+            time.sleep(100)
 
     if line_reading[0:4] == 'wait':
         try:
@@ -85,6 +90,7 @@ app not imported, use import app'''
         except:
             print('''ERROR!
 could not time.sleep''')
+            time.sleep(100)
 
     if line_reading[0:3] == 'var':
         try:
@@ -97,6 +103,7 @@ could not time.sleep''')
         except:
             print '''ERROR!
 could not make variable'''
+            time.sleep(100)
 
     if line_reading[0:18] == 'app.variable.names':
         if 'app' in modules:
@@ -204,5 +211,14 @@ app not imported, use import app'''
                                 else:
                                     printlength = len(line_reading)
                                     print line_reading[10:printlength]
-                        line = line + 1
+
+                        if line_reading[4:13] == 'input.ask':
+                            if 'input' in modules:
+                                printlength = len(line_reading)
+                                input_answer = raw_input(line_reading[14:printlength - 1])
+                            else:
+                                print '''ERROR!
+input not imported, use import input'''   
+
+
     line = line + 1
